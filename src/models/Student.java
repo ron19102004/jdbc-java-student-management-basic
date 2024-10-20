@@ -77,4 +77,20 @@ public class Student {
     public void setGrade(Grade grade) {
         this.grade = grade;
     }
+    public static String toStringHeader(){
+        return String.format(
+                "+----+----------------------+------------------+---------------------------+---------------+--------+----------------------+\n" +
+                "| ID | Name                 | Phone            | Address                   | Year of Birth | Gender | Grade                |\n" +
+                "+----+----------------------+------------------+---------------------------+---------------+--------+----------------------+\n"
+        );
+    }
+    @Override
+    public String toString() {
+        return String.format(
+                "| %-2d | %-20s | %-16s | %-25s | %-13d | %-6s | %-20s |\n" +
+                "+----+----------------------+------------------+---------------------------+---------------+--------+----------------------+\n",
+                id, name, phone, address, yearOfBirth, gender.name(), grade.getId()
+        );
+    }
+
 }

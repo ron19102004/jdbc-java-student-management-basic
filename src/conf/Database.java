@@ -19,6 +19,7 @@ public class Database {
             new com.mysql.jdbc.Driver();
             String dbURL = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
             Database.connection = DriverManager.getConnection(dbURL, user, password);
+            System.out.println("Database connected!");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -26,6 +27,7 @@ public class Database {
     public static void close() throws SQLException {
         if (Database.connection != null){
             Database.connection.close();
+            System.out.println("Database disconnected!");
         }
     }
 }

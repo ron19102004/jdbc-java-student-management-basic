@@ -28,11 +28,19 @@ public class Grade {
         this.name = name;
     }
 
+    public static String toStringHeader(){
+        return String.format(
+                "+----+----------------------+\n" +
+                "| ID | Name                 |\n" +
+                "+----+----------------------+\n"
+        );
+    }
     @Override
     public String toString() {
-        return "Grade{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return String.format(
+                "| %-2d | %-20s |\n" +
+                "+----+----------------------+\n",
+                id, name
+        );
     }
 }

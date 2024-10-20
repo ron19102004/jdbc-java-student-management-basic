@@ -38,12 +38,34 @@ public class GradeService implements IService<Grade> {
     }
 
     @Override
-    public boolean remove(long id) {
-        return false;
+    public boolean remove(long id) throws SQLException {
+        PreparedStatement stmt = Database.getConnection().prepareStatement("DELETE FROM grades WHERE id = ?");
+        stmt.setLong(1, id);
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0;
     }
 
     @Override
-    public boolean update(Grade grade) {
-        return false;
+    public boolean update(Grade grade) throws SQLException {
+        PreparedStatement stmt = Database.getConnection().prepareStatement("UPDATE grades set name = ? where id = ?");
+        stmt.setString(1, grade.getName());
+        stmt.setLong(2, grade.getId());
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public Grade findById(long id) throws SQLException {
+        Grade grade = null;
+        PreparedStatement stmt = Database.getConnection().prepareStatement("select * from grades where id = ?");
+        stmt.setLong(1, id);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            grade = new Grade(
+                    rs.getInt("id"),
+                    rs.getString("name")
+            );
+        }
+        return grade;
     }
 }
